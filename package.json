@@ -1,0 +1,18 @@
+{
+  "name": "babel-plugin-tailwind-string",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "author": "Nghia Pham <phmngocnghia@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/types": "^7.6.3",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "deasync": "^0.1.15",
+    "deasync-promise": "^1.0.1",
+    "tailwindcss": "^1.1.3"
+  },
+  "scripts": {
+    "run:test": "babel './tests/index.js' --out-file ./tests/result.js"
+  }
+}
