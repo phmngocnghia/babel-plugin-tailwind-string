@@ -1,29 +1,55 @@
-var deasync = require('deasync-promise');
-var postCss = require('postcss')
-var t = require('@babel/types')
-var postCssInstance = postCss([require('tailwindcss')])
+const deasync = require('deasync-promise');
+const postCss = require('postcss')
+const t = require('@babel/types')
+const postCssInstance = postCss([require('tailwindcss')])
+const {addDummyCssClass, removeDummyCssClass} = require('./utils')
+const dlv = require('dlv')
 
-const returnPromise = (css) => {
+
+const transformTailwind = (str) => {
   return new Promise(async resolve => {
-    const transformedCssResult = await postCssInstance.process(css, {from: null, to: null})
-    resolve(transformedCssResult.css)
+    const transformedResult = await postCssInstance.process(str, {from: null, to: null})
+    resolve(transformedResult.css)
   })
 }
 
 module.exports = function () {
-  console.log('Hello world')
   return {
     visitor: {
+      /**
+       * Input example: mt-5 mb-4
+       */
       TaggedTemplateExpression(path) {
-        if (path.node.tag.name === 'tw') {
-          const quasis = path.node.quasi.quasis[0]
-          const css = quasis.value.raw
-          const transformValue = deasync(returnPromise(css))
-          path.traverse({
-            TemplateElement(path) {
-              path.node.value.raw = '\n' + transformValue
-            }
-          })
+        /**
+         * twa
+         * 1/ add @apply if twa, @screen if tws
+         * 2/ add dummy class
+         * 3/ transform code using postcss
+         * 4/ remove dummy classs
+         * 5/ replace tw`value` -> 'generated value'
+         */
+        const tagName = path.node.tag.name
+        if (['twa', 'tws'].includes(tagName)) {
+          const quasis = dlv(path,'node.quasi.quasis.0')
+          if (!quasis) {
+            return
+          }
+
+          let value = quasis.value.raw
+          if (!value) return
+
+          if (tagName === 'twa') {
+            value = '@apply ' + value
+          } else {
+            value = '@screen ' + value
+          }
+
+          value = addDummyCssClass(value)
+          let transformedValue = deasync(transformTailwind(value))
+          
+          transformedValue = removeDummyCssClass(transformedValue)
+          transformedValue = `\`${transformedValue.trim()}\``
+          path.replaceWithSourceString(transformedValue)
         }
       }
     }
