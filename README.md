@@ -3,6 +3,106 @@
 ## Introduction:
 This is a babel plugin transforms a string into a new string contain tailwind attributes, screen size, tailwind config value path key.
 
+## Usecase:
+I use it in combination of css-in-js libraries. eg: styled-components, emotion, linaria.
+
+**Input:**
+
+```
+// styled-componenets
+const StyledComponentsButton = styled.button`
+  ${tws`md`} {
+    ${twa`mt-20 p-20`}
+  }
+
+  ${twa`mt-10 p-10 bg-testColor`}
+  color: ${twt`colors.green.900`}
+`
+// emotion
+const emotionButtonClass = cssEmotion`
+  ${tws`md`} {
+    ${twa`mt-20 p-20`}
+  }
+
+  ${twa`mt-10 p-10 bg-testColor `}
+  color: ${twt`colors.green.900`}
+`
+
+const EmotionButton = emotion.button`
+  ${tws`md`} {
+    ${twa`mt-20 p-20`}
+  }
+
+  ${twa`mt-10 p-10 bg-testColor` };
+  color: ${twt`colors.green.900`}
+`
+
+// linaria
+const linariaButtonClass = cssEmotion`
+  ${tws`md`} {
+    ${twa`mt-20 p-20`}
+  }
+
+  ${twa`mt-10 p-10 bg-testColor `}
+  color: ${twt`colors.green.900`}
+`
+```
+
+**Output:**
+```
+const StyledComponentsButton = styled.button`
+  ${`@media (min-width: 768px)`} {
+    ${`margin-top: 5rem;
+    padding: 5rem;`}
+  }
+
+  ${`margin-top: 2.5rem;
+     padding: 2.5rem;
+    background-color: yellow;`}
+    color: ${`#22543d`}
+`; // emotion
+
+const emotionButtonClass = cssEmotion`
+    ${`@media (min-width: 768px)`} {
+        ${`margin-top: 5rem;
+         padding: 5rem;`}
+     }
+
+     ${`margin-top: 2.5rem;
+     padding: 2.5rem;
+     background-color: yellow;`}
+    color: ${`#22543d`}
+`;
+const EmotionButton = emotion.button`
+    ${`@media (min-width: 768px)`} {
+        ${`margin-top: 5rem;
+        padding: 5rem;`}
+    }
+
+    ${`margin-top: 2.5rem;
+        padding: 2.5rem;
+        background-color: yellow;`};
+        color: ${`#22543d`}
+`; // linaria
+
+const linariaButtonClass = cssEmotion`
+    ${`@media (min-width: 768px)`} {
+        ${`margin-top: 5rem;
+        padding: 5rem;`}
+    }
+
+    ${`margin-top: 2.5rem;
+    padding: 2.5rem;
+    background-color: yellow;`}
+    color: ${`#22543d`}
+`;
+
+```
+
+**Cons:**
+- Access reuse tailwind variable.
+- Rapid prototype, code faster.
+
 ## Usages:
 
 ```
