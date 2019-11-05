@@ -4,7 +4,13 @@
 This is a babel plugin transforms a string into a new string contain tailwind attributes, screen size, tailwind config value path key.
 
 ## Usecase:
-I use it in combination of css-in-js libraries. eg: styled-components, emotion, linaria.
+To be used in combination of css-in-js libraries. eg: styled-components, emotion, linaria.
+
+
+**Cons:**
+- Reuse tailwind variable.
+- Rapid prototype, code faster.
+- Active matained.
 
 **Input:**
 
@@ -99,10 +105,6 @@ const linariaButtonClass = cssEmotion`
 
 ```
 
-**Cons:**
-- Access reuse tailwind variable.
-- Rapid prototype, code faster.
-
 ## Usages:
 
 ```
@@ -110,7 +112,7 @@ npm install --dev babel-plugin-tailwind-string
 yarn add --dev babel-plugin-tailwind-string
 ```
 
-Since this is a babel plugin, we just need to add it to the "plugins" section in the babel configuration file to activiate it. Remember to place this on the top of the section incase of using other plugins that transpile the string into css. eg: linaria... etc
+Since this is a babel plugin, we just need to add it to the "plugins" section in the babel configuration file to activate it.
 
 ```
 {
