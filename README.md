@@ -6,7 +6,6 @@ This is a babel plugin transforms a string into a new string contain tailwind at
 ## Usecase:
 To be used in combination of css-in-js libraries. eg: styled-components, emotion, linaria.
 
-
 **Cons:**
 - Reuse tailwind variable.
 - Rapid prototype, code faster.
@@ -181,8 +180,29 @@ const StyledComponentsButton = styled.button`
 `
 ```
 
+## Typescript users:
+I haven't created a PR to update types for this package in the DefinitedType repository yet. VSCode users will recieve error like: `twa is not defined`, `twa is not a function`...
+Currently, there is a workaround for this. Add 'babel-plugin-tailwind-string' to field "compilerOptions.types":
+```
+{
+  "compilerOptions": {
+    "target": "es5",                          
+    "module": "commonjs",                     
+    "jsx": "react",                     
+    "strict": true,      
+    
+
+    "types": [
+      "babel-plugin-tailwind-string"
+    ],                           
+
+
+    "esModuleInterop": true                   
+  }
+}
+```
+
 ## LICENSE
 MIT
-
 
 
