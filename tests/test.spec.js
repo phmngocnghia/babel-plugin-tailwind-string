@@ -23,7 +23,7 @@ describe("twa", () => {
         plugins
       })
       .then(result => {
-        expect(result.code).toBe(`\`\$\{\`color: test\`\}\`;`);
+        expect(result.code).toBe(`\`\$\{\`color: test;\`\}\`;`);
         done();
       });
   });
@@ -34,7 +34,7 @@ describe("twa", () => {
         plugins
       })
       .then(result => {
-        expect(result.code).toBe(`\`\$\{\`hyphens: none\`\}\`;`);
+        expect(result.code).toBe(`\`\$\{\`hyphens: none;\`\}\`;`);
         done();
       });
   });
@@ -46,7 +46,7 @@ describe("twa", () => {
       })
       .then(result => {
         expect(result.code).toBe(`\`\$\{\`margin-top: 1.25rem;
-  margin-bottom: 1.25rem\`\}\`;`);
+  margin-bottom: 1.25rem;\`\}\`;`);
         done();
       });
   });

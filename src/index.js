@@ -54,7 +54,11 @@ module.exports = function () {
             transformedValue = transformedValue.replace('color: ', '')
           }
           transformedValue = removeDummyCssClass(transformedValue)
-          transformedValue = `\`${transformedValue.trim()}\``
+          if (tagName === 'twa') {
+            transformedValue = `\`${transformedValue.trim()};\``
+          } else {
+            transformedValue = `\`${transformedValue.trim()}\``
+          }
           path.replaceWithSourceString(transformedValue)
         }
       }
