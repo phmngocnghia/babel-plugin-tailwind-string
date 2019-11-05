@@ -1,6 +1,5 @@
 const deasync = require('deasync-promise');
 const postCss = require('postcss')
-const t = require('@babel/types')
 const postCssInstance = postCss([require('tailwindcss')])
 const {addDummyCssClass, removeDummyCssClass} = require('./utils')
 const dlv = require('dlv')
