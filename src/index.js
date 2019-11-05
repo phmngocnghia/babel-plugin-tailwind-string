@@ -29,7 +29,7 @@ module.exports = function () {
          * 5/ replace tw`value` -> 'generated value'
          */
         const tagName = path.node.tag.name
-        if (['twa', 'tws'].includes(tagName)) {
+        if (['twa', 'tws', 'twt'].includes(tagName)) {
           const quasis = dlv(path,'node.quasi.quasis.0')
           if (!quasis) {
             return
@@ -40,13 +40,19 @@ module.exports = function () {
 
           if (tagName === 'twa') {
             value = '@apply ' + value
-          } else {
+          } else if (tagName === 'tws') {
             value = '@screen ' + value
+          } else if (tagName === 'twt') {
+            // Add dummy attribute key, If not, postcss won't understand this
+            value = `color: theme('${value}')`
           }
 
           value = addDummyCssClass(value)
           let transformedValue = deasync(transformTailwind(value))
-          
+          if (tagName === 'twt') {
+            // Remove dummy attribute
+            transformedValue = transformedValue.replace('color: ', '')
+          }
           transformedValue = removeDummyCssClass(transformedValue)
           transformedValue = `\`${transformedValue.trim()}\``
           path.replaceWithSourceString(transformedValue)

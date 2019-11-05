@@ -1,6 +1,18 @@
 const babel = require('@babel/core')
 const plugins = [require('../src')]
 
+describe('twt', () => {
+  it('works', (done) => {
+    const input = `\`\$\{twt\`spacing.12\`\}\``
+    babel.transformAsync(input, {
+      plugins
+    }).then(result => {
+      expect(result.code).toBe(`\`\$\{\`3rem\`\}\`;`)
+      done()
+    })
+  })
+})
+
 describe('twa', () => {
   it('works', (done) => {
     const input = `\`\$\{twa\`mt-5 mb-5\`\}\``
