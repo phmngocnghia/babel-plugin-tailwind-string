@@ -1,15 +1,15 @@
 {
   "name": "babel-plugin-tailwind-string",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./src/index.js",
+  "types": "./index.d.ts",
   "author": "Nghia Pham <phmngocnghia@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@babel/types": "^7.6.3",
-    "babel": "^6.23.0",
     "deasync-promise": "^1.0.1",
-    "tailwindcss": "^1.1.3",
-    "dlv": "^1.1.3"
+    "dlv": "^1.1.3",
+    "tailwindcss": "^1.1.3"
   },
   "scripts": {
     "test": "jest --watch"
