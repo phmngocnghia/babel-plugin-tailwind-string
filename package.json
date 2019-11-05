@@ -1,6 +1,7 @@
 {
   "name": "babel-plugin-tailwind-string",
-  "version": "0.0.9",
+  "homepage": "https://github.com/phmngocnghia/babel-plugin-tailwind-string",
+  "version": "0.0.10",
   "main": "./src/index.js",
   "types": "./index.d.ts",
   "author": "Nghia Pham <phmngocnghia@gmail.com>",
