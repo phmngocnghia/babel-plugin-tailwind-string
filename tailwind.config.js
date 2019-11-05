@@ -1,7 +1,13 @@
 module.exports = {
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        "test": "test"
+      }
+    }
   },
   variants: {},
-  plugins: []
+  plugins: [
+    require("tailwindcss-hyphens")
+  ]
 }
