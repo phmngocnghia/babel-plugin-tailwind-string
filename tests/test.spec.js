@@ -1,9 +1,9 @@
 const babel = require("@babel/core");
 const plugins = [require("../src")];
 
-describe("twt", () => {
+describe("theme", () => {
   it("works with tailwind string", done => {
-    const input = `\`\$\{twt\`spacing.12\`\}\``;
+    const input = `\`\$\{theme\`spacing.12\`\}\``;
     babel
       .transformAsync(input, {
         plugins
@@ -15,9 +15,9 @@ describe("twt", () => {
   });
 });
 
-describe("twa", () => {
+describe("apply", () => {
   it("works with extended property", done => {
-    const input = `\`\$\{twa\`text-test\`\}\``;
+    const input = `\`\$\{apply\`text-test\`\}\``;
     babel
       .transformAsync(input, {
         plugins
@@ -28,7 +28,7 @@ describe("twa", () => {
       });
   });
   it("works with tailwind plugin property", done => {
-    const input = `\`\$\{twa\`hyphens-none\`\}\``;
+    const input = `\`\$\{apply\`hyphens-none\`\}\``;
     babel
       .transformAsync(input, {
         plugins
@@ -39,7 +39,7 @@ describe("twa", () => {
       });
   });
   it("works with default tailwind property", done => {
-    const input = `\`\$\{twa\`mt-5 mb-5\`\}\``;
+    const input = `\`\$\{apply\`mt-5 mb-5\`\}\``;
     babel
       .transformAsync(input, {
         plugins
@@ -52,9 +52,9 @@ describe("twa", () => {
   });
 });
 
-describe("tws", () => {
+describe("screen", () => {
   it("works", done => {
-    const input = `\`\$\{tws\`sm\`\}\``;
+    const input = `\`\$\{screen\`sm\`\}\``;
     babel
       .transformAsync(input, {
         plugins

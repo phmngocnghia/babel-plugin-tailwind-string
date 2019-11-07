@@ -20,15 +20,15 @@ module.exports = function () {
        */
       TaggedTemplateExpression(path) {
         /**
-         * twa
-         * 1/ add @apply if twa, @screen if tws
+         * apply
+         * 1/ add @apply if apply, @screen if screen, theme if theme
          * 2/ add dummy class
          * 3/ transform code using postcss
          * 4/ remove dummy classs
          * 5/ replace tw`value` -> 'generated value'
          */
         const tagName = path.node.tag.name
-        if (['twa', 'tws', 'twt'].includes(tagName)) {
+        if (['apply', 'screen', 'theme'].includes(tagName)) {
           const quasis = dlv(path,'node.quasi.quasis.0')
           if (!quasis) {
             return
@@ -37,23 +37,31 @@ module.exports = function () {
           let value = quasis.value.raw
           if (!value) return
 
-          if (tagName === 'twa') {
+          if (tagName === 'apply') {
             value = '@apply ' + value
-          } else if (tagName === 'tws') {
+          } else if (tagName === 'screen') {
             value = '@screen ' + value
-          } else if (tagName === 'twt') {
-            // Add dummy attribute key, If not, postcss won't understand this
+          } else if (tagName === 'theme') {
+            // Add dummy themeibute key, If not, postcss won't understand this
             value = `color: theme('${value}')`
           }
 
           value = addDummyCssClass(value)
-          let transformedValue = deasync(transformTailwind(value))
-          if (tagName === 'twt') {
-            // Remove dummy attribute
+          let transformedValue = ''
+          try {
+            transformedValue = deasync(transformTailwind(value))
+          } catch (err) {
+            console.error('[Babel-plugin-tailwind-string] There was an error:')
+            console.error(err)
+            return
+          }
+            
+          if (tagName === 'theme') {
+            // Remove dummy themeibute
             transformedValue = transformedValue.replace('color: ', '')
           }
           transformedValue = removeDummyCssClass(transformedValue)
-          if (tagName === 'twa') {
+          if (tagName === 'apply') {
             transformedValue = `\`${transformedValue.trim()};\``
           } else {
             transformedValue = `\`${transformedValue.trim()}\``
